@@ -14,6 +14,7 @@ export default function App() {
   const [nroPatien, setNroPatient] = useState(
     JSON.parse(localStorage.getItem("nroDePaciente")) ?? 0 //CARGAR LOS EL NUMERO TOTAL DE PACIENTES
   );
+  const [error, setError] = useState(false);
 
   //AGREGAR PACIENTE EN EL LOCAL STORAGE
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function App() {
   return (
     <div className=" h-screen">
       <Header />
-      <div className="h-auto flex flex-col lg:flex-row gap-5 w-full  bg-[#47A6E6] px-20 py-10">
+      <div className="h-auto lg:h-screen min-[1300px]:h-[85%] flex flex-col lg:flex-row gap-5 w-full bg-[#47A6E6] py-5 md:px-16 min-[700px]:px-20 lg:px-20 lg:py-4">
         <Form
           pacientes={pacientes}
           setPacientes={setPacientes}
@@ -50,6 +51,9 @@ export default function App() {
           edit={edit}
           setEdit={setEdit}
           nroPaciente={nroPaciente}
+          nroPatien={nroPatien}
+          error={error}
+          setError={setError}
         />
         <PatientList
           pacientes={pacientes}
@@ -59,6 +63,8 @@ export default function App() {
           editPaciente={editPaciente}
           eliminandoPaciente={eliminandoPaciente}
           nroPatien={nroPatien}
+          error={error}
+          setError={setError}
         />
       </div>
     </div>
