@@ -38,9 +38,9 @@ export default function App() {
   };
 
   return (
-    <div className=" h-screen">
+    <div className="h-screen px-5">
       <Header />
-      <div className="h-auto lg:h-screen min-[1300px]:h-[85%] flex flex-col lg:flex-row gap-5 w-full bg-[#47A6E6] py-5 md:px-16 min-[700px]:px-20 lg:px-20 lg:py-4">
+      <div className="h-auto lg:h-screen min-[1300px]:h-[85%] flex flex-col lg:flex-row gap-5 w-full bg-[#237fd9] py-5 md:px-16 min-[700px]:px-20 lg:px-20 lg:py-4 rounded-t-2xl">
         <Form
           pacientes={pacientes}
           setPacientes={setPacientes}

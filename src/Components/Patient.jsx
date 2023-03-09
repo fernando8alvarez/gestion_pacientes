@@ -58,6 +58,8 @@ export default function Patient({
           showConfirmButton: false,
           timer: 1500,
           timerProgressBar: true,
+          width: "400px",
+          height: "400px",
         });
       }
     });
@@ -67,15 +69,15 @@ export default function Patient({
     <div
       className={
         edit
-          ? "bg-white brightness-75 shadow-md px-5 py-5 min-[800px]:px-10 lg:px-5 rounded-xl flex flex-col gap-1"
-          : "bg-white shadow-md px-5 py-5 min-[800px]:px-10 rounded-xl lg:px-5 flex flex-col gap-"
+          ? "bg-[#ECF1F6] brightness-75 shadow-md px-5 py-5 min-[800px]:px-10 lg:px-5 rounded-xl flex flex-col gap-1"
+          : "bg-[#ECF1F6] shadow-md px-5 py-5 min-[800px]:px-10 rounded-xl lg:px-5 flex flex-col gap-"
       }
     >
       <div className="text-sm min-[1250px]:text-base bg-[#47A6E6] w-full py-1 uppercase font-bold rounded-md text-gray-800 text-center">
         Paciente Nro: {nro}
       </div>
       <div className="flex flex-col min-[470px]:flex-row lg:gap-2 mt-2">
-        <p className="block text-gray-700 text- min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold w-full lg:w-1/2">
+        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold w-full lg:w-1/2">
           Nombre:{" "}
           <span className="font-normal normal-case text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base">
             {nombre}

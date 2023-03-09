@@ -15,7 +15,7 @@ export default function Form({
   nroPaciente,
   nroPatien,
   error,
-  setError
+  setError,
 }) {
   //ESTADOS LOCALES
   const [paciente, setPaciente] = useState({
@@ -72,7 +72,6 @@ export default function Form({
     const { nombre, apellido, email, edad, telefono, fecha } = paciente;
 
     if ([nombre, apellido, email, edad, telefono, fecha].includes("")) {
-      console.log("La mayoria de los campos requeridos estan vacios");
       setError(true);
       return;
     } else if (editPaciente.id) {
@@ -149,6 +148,8 @@ export default function Form({
             showConfirmButton: false,
             timer: 1500,
             timerProgressBar: true,
+            width: "400px",
+            height: "400px",
           });
         }
       });
@@ -158,28 +159,27 @@ export default function Form({
   return (
     <>
       <div className="w-full lg:w-1/2 px-5 md:px-12 lg:px-0 flex flex-col gap-5">
-        <div className="bg-white flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 shadow-md rounded-lg  p-3">
+        <div className="bg-[#ECF1F6] flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 shadow-md rounded-lg p-3">
           <div
             className={
               pacientes.length > 0 || nroPatien > 0 ? "lg:w-auto" : "w-full"
             }
           >
-            <h2 className="font-black text-xl md:2xl min-[900px]:text-2xl lg:text-xl text-center">
+            <h2 className="font-bold text-xl md:2xl min-[900px]:text-2xl lg:text-xl text-center text-[#31353D]">
               Registrar Pacientes
             </h2>
-            <p className="text-sm md:text-base min-[900px]:text-base lg:text-sm text-center">
-              (Añade Pacientes y {""}
-              <span className="font-bold text-[#47A6E6]">Administralos</span>)
+            <p className="text-sm md:text-base min-[900px]:text-base lg:text-sm text-center font-bold text-[#237fd9]">
+              Añade Pacientes y Administralos
             </p>
           </div>
           {(pacientes.length > 0 || nroPatien > 0) && (
             <div className="flex sm:flex-col gap-2 sm:gap-0 min-[900px]:gap-1 items-center justify-center lg:w-auto">
-              <h2 className="font-black text-base md:text-lg min-[900px]:text-xl lg:text-base text-center">
+              <h2 className="font-bold text-base md:text-lg min-[900px]:text-xl lg:text-base text-center text-[#31353D]">
                 Reiniciar Sistema
               </h2>
               <button
                 type="button"
-                className="w-fit px-4 bg-[#47A6E6] hover:bg-red-600 text-gray-800 hover:text-white rounded-full text-sm md:text-base min-[900px]:text-md lg:text-sm font-bold transition-colors shadow-sm lg:shadow-md shadow-gray-400"
+                className="w-fit px-4 py-0.5 bg-[#237fd9] hover:bg-red-500 text-gray-800 hover:text-[#ECF1F6] rounded-full text-sm md:text-base min-[900px]:text-md lg:text-xs font-bold transition-colors shadow-sm lg:shadow-md shadow-gray-400 text-[#ECF1F6]"
                 onClick={() => handleReset()}
               >
                 Reestablecer
@@ -192,8 +192,8 @@ export default function Form({
           action=""
           className={
             error
-              ? "bg-white shadow-md rounded-lg p-8 min-[920px]:p-16 lg:p-8 min-[1250px]:py-4 flex flex-col gap-2 lg:gap-3"
-              : "bg-white shadow-md rounded-lg p-8 min-[920px]:p-16 lg:p-8 flex flex-col gap-2 lg:gap-3"
+              ? "bg-[#ECF1F6] shadow-md rounded-lg p-8 min-[920px]:p-16 lg:p-8 min-[1250px]:py-4 flex flex-col gap-2 lg:gap-3"
+              : "bg-[#ECF1F6] shadow-md rounded-lg p-8 min-[920px]:p-16 lg:p-8 flex flex-col gap-2 lg:gap-3"
           }
         >
           {error && <Error msj="¡Estos campos son requeridos!" />}
@@ -201,7 +201,7 @@ export default function Form({
             <div className="w-full min-[520px]:w-1/2">
               <label
                 htmlFor="name"
-                className="text-sm block text-gray-700 uppercase font-bold"
+                className="text-sm block text-[#31353D] uppercase font-bold"
               >
                 Nombre
               </label>
@@ -213,7 +213,7 @@ export default function Form({
                 className={
                   error
                     ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.nombre}
                 onChange={(e) => handleChange(e)}
@@ -222,7 +222,7 @@ export default function Form({
             <div className="w-full min-[520px]:w-1/2">
               <label
                 htmlFor="lastname"
-                className="text-sm block text-gray-700 uppercase font-bold"
+                className="text-sm block text-[#31353D] uppercase font-bold"
               >
                 Apellido
               </label>
@@ -234,7 +234,7 @@ export default function Form({
                 className={
                   error
                     ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.apellido}
                 onChange={(e) => handleChange(e)}
@@ -245,7 +245,7 @@ export default function Form({
             <div className="w-full min-[520px]:w-4/6">
               <label
                 htmlFor="Email"
-                className="text-sm block text-gray-700 uppercase font-bold"
+                className="text-sm block text-[#31353D] uppercase font-bold"
               >
                 Email
               </label>
@@ -257,7 +257,7 @@ export default function Form({
                 className={
                   error
                     ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.email}
                 onChange={(e) => handleChange(e)}
@@ -266,7 +266,7 @@ export default function Form({
             <div className="w-full min-[520px]:w-2/6">
               <label
                 htmlFor="edad"
-                className="text-sm block text-gray-700 uppercase font-bold"
+                className="text-sm block text-[#31353D] uppercase font-bold"
               >
                 Edad
               </label>
@@ -278,7 +278,7 @@ export default function Form({
                 className={
                   error
                     ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.edad}
                 onChange={(e) => handleChange(e)}
@@ -289,7 +289,7 @@ export default function Form({
             <div className="w-full min-[520px]:w-4/6 lg:w-full min-[1260px]:w-4/6 ">
               <label
                 htmlFor="tlf"
-                className="text-sm block text-gray-700 uppercase font-bold"
+                className="text-sm block text-[#31353D] uppercase font-bold"
               >
                 Teléfono
               </label>
@@ -301,7 +301,7 @@ export default function Form({
                 className={
                   error
                     ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.telefono}
                 onChange={(e) => handleChange(e)}
@@ -310,7 +310,7 @@ export default function Form({
             <div className="w-full min-[520px]:w-2/6 lg:w-full min-[1260px]:w-2/6 ">
               <label
                 htmlFor="dateInput"
-                className="text-sm block text-gray-700 uppercase font-bold"
+                className="text-sm block text-[#31353D] uppercase font-bold"
               >
                 Fecha de ingreso
               </label>
@@ -321,7 +321,7 @@ export default function Form({
                 className={
                   error
                     ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                    : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.fecha}
                 onChange={(e) => handleChange(e)}
@@ -331,22 +331,22 @@ export default function Form({
           <div>
             <label
               htmlFor="symptoms"
-              className="text-sm block text-gray-700 uppercase font-bold"
+              className="text-sm block text-[#31353D] uppercase font-bold"
             >
-              Sintomas
+              motivo o Sintomas
             </label>
             <textarea
               name="sintomas"
               id="symptoms"
-              className="text-sm border-2 w-full h-24 p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
-              placeholder="Describe los síntomas..."
+              className="text-sm border-2 w-full h-24 p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
+              placeholder="Describe el motivo o los síntomas..."
               value={paciente.sintomas}
               onChange={(e) => handleChange(e)}
             />
           </div>
           <input
             type="submit"
-            className="bg-[#47A6E6] text-sm lg:text-base w-full p-2 mt-2 uppercase font-bold rounded-md cursor-pointer transition-colors shadow-md shadow-gray-400 hover:bg-[#2F74A2] text-gray-800 hover:text-white"
+            className="bg-[#237fd9] text-sm lg:text-base w-full p-2 mt-2 uppercase font-bold rounded-md cursor-pointer transition-colors shadow-md shadow-gray-400 hover:bg-[#063970] text-[#ECF1F6] hover:text-[#ECF1F6]"
             value={editPaciente.id ? "Editar paciente" : "Agregar pacientes"}
           />
         </form>
