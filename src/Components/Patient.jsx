@@ -73,7 +73,7 @@ export default function Patient({
           : "bg-[#ECF1F6] shadow-md px-5 py-5 min-[800px]:px-10 rounded-xl lg:px-5 flex flex-col gap-"
       }
     >
-      <div className="text-sm min-[1250px]:text-base bg-[#47A6E6] w-full py-1 uppercase font-bold rounded-md text-gray-800 text-center">
+      <div className="text-sm min-[1250px]:text-base bg-[#237fd9] w-full py-1 uppercase font-bold rounded-md text-[#ECF1F6] text-center">
         Paciente Nro: {nro}
       </div>
       <div className="flex flex-col min-[470px]:flex-row lg:gap-2 mt-2">
@@ -128,14 +128,14 @@ export default function Patient({
         <div className="flex gap-5 items-center justify-center">
           <button
             type="button"
-            className="py-1 px-4 bg-[#47A6E6] hover:bg-[#2F74A2] text-gray-800 hover:text-white rounded-full text-sm font-bold transition-colors shadow-md shadow-gray-400"
+            className="py-1 px-4 bg-[#237fd9] hover:bg-[#063970] text-[#ECF1F6] hover:text-white rounded-full text-sm font-bold transition-colors shadow-md shadow-gray-400"
             onClick={() => EditarPaciente()}
           >
             Editar
           </button>
           <button
             type="button"
-            className="py-1 px-4 bg-[#47A6E6] hover:bg-red-600 text-gray-800 hover:text-white rounded-full text-sm font-bold transition-colors shadow-md shadow-gray-400"
+            className="py-1 px-4 bg-[#237fd9] hover:bg-red-600 text-[#ECF1F6] hover:text-white rounded-full text-sm font-bold transition-colors shadow-md shadow-gray-400"
             onClick={handleEliminar}
           >
             Eliminar

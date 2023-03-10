@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
-import { idGenerate, toUpperString } from "./Utility";
+import { idGenerate, toUpperString, formatoFecha } from "./Utility";
 import Swal from "sweetalert2";
 
 export default function Form({
@@ -44,7 +44,7 @@ export default function Form({
 
   //MANEJO DE INPUTS
   const handleChange = (e) => {
-    const inputs = ["nombre", "apellido", "sintomas"];
+    const inputs = ["nombre", "apellido"];
     setError(false);
 
     if (inputs.includes(e.target.name)) {
@@ -52,12 +52,21 @@ export default function Form({
         ...paciente,
         [e.target.name]: toUpperString(e.target.value),
       });
+      validate({ ...paciente, [e.target.name]: e.target.value });
     } else if (e.target.name === "email") {
       setPaciente({
         ...paciente,
         [e.target.name]: e.target.value.toLowerCase(),
       });
-    } else {
+      validate({ ...paciente, [e.target.name]: e.target.value.toLowerCase() });
+    } else if (e.target.name === "edad") {
+      setPaciente({
+        ...paciente,
+        [e.target.name]: e.target.value,
+      });
+      validate({ ...paciente, [e.target.name]: parseInt(e.target.value) });
+    }
+    else {
       setPaciente({
         ...paciente,
         [e.target.name]: e.target.value,
@@ -73,6 +82,8 @@ export default function Form({
 
     if ([nombre, apellido, email, edad, telefono, fecha].includes("")) {
       setError(true);
+      setErrorInput({ ...errorInput, allInputs: true });
+      setMsjErrors("¡Estos campos son requeridos!");
       return;
     } else if (editPaciente.id) {
       //EDITAR PACIENTE
@@ -96,11 +107,16 @@ export default function Form({
         timerProgressBar: true,
         showConfirmButton: false,
       });
-    } else {
+    } else if(error && msjErrors){
+        return setMsjErrors("¡No se pudo enviar el formulario!")
+    }
+    else {
       //AGREGAR NUEVO PACIENTE
       paciente.id = idGenerate();
       //AGREGAR NRO DE IDENTIFICACION DE PACIENTE
       paciente.nro = nroPaciente();
+      //CAMBIANDO EL FORMATO DE LA FECHA/HORA
+      paciente.fecha = formatoFecha(paciente.fecha);
       setPacientes([...pacientes, paciente]);
       //CONTADOR DE PACIENTES
       setCountPatients(countPatiens + 1);
@@ -156,6 +172,60 @@ export default function Form({
     }
   };
 
+  //VALIDACIONES DE LOS INPUTS
+  const [msjErrors, setMsjErrors] = useState("");
+  const [errorInput, setErrorInput] = useState({
+    nombre: false,
+    apellido: false,
+    email: false,
+    edad: false,
+    telefono: false,
+    allInputs: false
+  });
+
+  function validate(input) {
+    const err1 = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;//Letras mayusculas y minusculas, espacios y acentos
+    const err2 = /^[a-z0-9._@\-]+$/;//Letras, numeros, punto, arroba, guion, guion bajo
+
+    if (input.nombre && (!err1.test(input.nombre))) {
+      setErrorInput({ ...errorInput, nombre: true });
+      setError(true);
+      return setMsjErrors("¡Solo puede contener letras!");
+    }
+    else if (input.apellido && (!err1.test(input.apellido))) {
+      setErrorInput({ ...errorInput, apellido: true });
+      setError(true);
+      return setMsjErrors("¡Solo puede contener letras!");
+    }
+    else if (input.email && (!err2.test(input.email))) {
+      setError(true);
+      setErrorInput({ ...errorInput, email: true });
+      return setMsjErrors("¡No se permite esos caracteres especiales!");
+    }
+    else if (input.edad && !(input.edad >= 1 && input.edad <= 100) || input.edad === 0) {
+      setError(true);
+      setErrorInput({ ...errorInput, edad: true });
+      return setMsjErrors("¡Edad no permitida!");
+    }
+    else {
+      setMsjErrors("");
+      setError(false);
+      setErrorInput({
+        nombre: false,
+        apellido: false,
+        email: false,
+        edad: false,
+        telefono: false,
+        fecha: false,
+        allInputs: false
+      })
+    }
+
+    return;
+  }
+  console.log(error);
+  console.log(msjErrors);
+
   return (
     <>
       <div className="w-full lg:w-1/2 px-5 md:px-12 lg:px-0 flex flex-col gap-5">
@@ -179,7 +249,7 @@ export default function Form({
               </h2>
               <button
                 type="button"
-                className="w-fit px-4 py-0.5 bg-[#237fd9] hover:bg-red-500 text-gray-800 hover:text-[#ECF1F6] rounded-full text-sm md:text-base min-[900px]:text-md lg:text-xs font-bold transition-colors shadow-sm lg:shadow-md shadow-gray-400 text-[#ECF1F6]"
+                className="w-fit px-4 py-0.5 bg-[#237fd9] hover:bg-red-500 hover:text-[#ECF1F6] rounded-full text-sm md:text-base min-[900px]:text-md lg:text-xs font-bold transition-colors shadow-sm lg:shadow-md shadow-gray-400 text-[#ECF1F6]"
                 onClick={() => handleReset()}
               >
                 Reestablecer
@@ -196,7 +266,7 @@ export default function Form({
               : "bg-[#ECF1F6] shadow-md rounded-lg p-8 min-[920px]:p-16 lg:p-8 flex flex-col gap-2 lg:gap-3"
           }
         >
-          {error && <Error msj="¡Estos campos son requeridos!" />}
+          {error && <Error msj={msjErrors} />}
           <div className="flex flex-col min-[520px]:flex-row gap-2 lg:gap-3">
             <div className="w-full min-[520px]:w-1/2">
               <label
@@ -211,8 +281,8 @@ export default function Form({
                 id="name"
                 placeholder="Nombre del paciente..."
                 className={
-                  error
-                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                  (errorInput.nombre || errorInput.allInputs)
+                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-red-500 text-gray-700"
                     : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.nombre}
@@ -232,8 +302,8 @@ export default function Form({
                 id="lastname"
                 placeholder="Apellido del paciente..."
                 className={
-                  error
-                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                  (errorInput.apellido || errorInput.allInputs)
+                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-red-500 text-gray-700"
                     : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.apellido}
@@ -255,8 +325,8 @@ export default function Form({
                 id="Email"
                 placeholder="Correo del paciente..."
                 className={
-                  error
-                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                  (errorInput.email || errorInput.allInputs)
+                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-red-500 text-gray-700"
                     : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.email}
@@ -271,17 +341,18 @@ export default function Form({
                 Edad
               </label>
               <input
-                type="text"
+                type="number"
                 name="edad"
                 id="edad"
                 placeholder="Edad del paciente..."
                 className={
-                  error
-                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                  (errorInput.edad || errorInput.allInputs)
+                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-red-500 text-gray-700"
                     : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.edad}
                 onChange={(e) => handleChange(e)}
+
               />
             </div>
           </div>
@@ -299,8 +370,8 @@ export default function Form({
                 id="tlf"
                 placeholder="Teléfono del paciente o representante..."
                 className={
-                  error
-                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                  (errorInput.telefono || errorInput.allInputs)
+                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-red-500 text-gray-700"
                     : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.telefono}
@@ -319,8 +390,8 @@ export default function Form({
                 name="fecha"
                 id="dateInput"
                 className={
-                  error
-                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#47A6E6] text-gray-700"
+                  (errorInput.allInputs)
+                    ? "text-sm border-2 border-red-500 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-red-500 text-gray-700"
                     : "text-sm border-2 w-full p-2 mt-1 placeholder-gray-400 rounded-md focus:outline-none focus:border-[#237fd9] text-gray-700"
                 }
                 value={paciente.fecha}
