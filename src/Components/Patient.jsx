@@ -48,7 +48,7 @@ export default function Patient({
       confirmButtonText: "Eliminar",
       cancelButtonText: "Cancelar",
       width: "400px",
-      height: "400px",
+      
     }).then((result) => {
       if (result.isConfirmed) {
         eliminandoPaciente(id);
@@ -59,7 +59,7 @@ export default function Patient({
           timer: 1500,
           timerProgressBar: true,
           width: "400px",
-          height: "400px",
+          
         });
       }
     });
@@ -91,13 +91,13 @@ export default function Patient({
         </p>
       </div>
       <div className="flex gap-2 min-[470px]:gap-0 lg:gap-2">
-        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold max-w-[76%] min-[470px]:w-1/2 lg:w-auto min-[1250px]:w-1/2">
+        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold max-w-[76%] min-[470px]:w-1/2 lg:w-auto min-[1250px]:w-[60%]">
           Correo:{" "}
           <span className="font-normal normal-case text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base">
             {email}
           </span>
         </p>
-        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold w-auto min-[470px]::w-1/2 lg:w-auto min-[1250px]:w-1/2">
+        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold w-auto min-[470px]::w-1/2 lg:w-auto min-[1250px]:w-[40%]">
           Edad:{" "}
           <span className="font-normal normal-case text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base">
             {edad}
@@ -105,13 +105,13 @@ export default function Patient({
         </p>
       </div>
       <div className="flex flex-col min-[470px]:flex-row lg:flex-col min-[1150px]:flex-row min-[1150px]:gap-2">
-        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm lg:text-sm min-[800px]:text-base min-[1250px]:text-base font-bold w-full min-[470px]:w-2/5 min-[900px]:w-1/2 lg:w-2/5 min-[1250px]:w-1/2">
+        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm lg:text-sm min-[800px]:text-base min-[1250px]:text-base font-bold w-full min-[470px]:w-2/5 min-[900px]:w-1/2 lg:w-full min-[1250px]:w-[40%]">
           Teléfono:{" "}
           <span className="font-normal normal-case text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base">
             {telefono}
           </span>
         </p>
-        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold w-ful min-[470px]:w-3/5 min-[900px]:w-1/2 lg:w-3/5 min-[1250px]:w-1/2">
+        <p className="block text-gray-700 text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base font-bold w-ful min-[470px]:w-3/5 min-[900px]:w-1/2 lg:w-full min-[1250px]:w-[60%]">
           Fecha Ingreso:{" "}
           <span className="font-normal normal-case text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base">
             {fecha}

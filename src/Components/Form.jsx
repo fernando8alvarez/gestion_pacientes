@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
-import { idGenerate, toUpperString, formatoFecha } from "./Utility";
+import { idGenerate, toUpperString, formatoFecha, fechaHora } from "./Utility";
 import Swal from "sweetalert2";
 
 export default function Form({
@@ -36,7 +36,7 @@ export default function Form({
         email: editPaciente.email,
         edad: editPaciente.edad,
         telefono: editPaciente.telefono,
-        fecha: editPaciente.fecha,
+        fecha: fechaHora(editPaciente.fecha),
         sintomas: editPaciente.sintomas,
       });
     }
@@ -52,25 +52,27 @@ export default function Form({
         ...paciente,
         [e.target.name]: toUpperString(e.target.value),
       });
-      validate({ ...paciente, [e.target.name]: e.target.value });
+      setErrorInput(validate({ ...paciente, [e.target.name]: e.target.value }));
     } else if (e.target.name === "email") {
       setPaciente({
         ...paciente,
         [e.target.name]: e.target.value.toLowerCase(),
       });
-      validate({ ...paciente, [e.target.name]: e.target.value.toLowerCase() });
+      setErrorInput(validate({ ...paciente, [e.target.name]: e.target.value.toLowerCase() }));
     } else if (e.target.name === "edad") {
       setPaciente({
         ...paciente,
         [e.target.name]: e.target.value,
       });
-      validate({ ...paciente, [e.target.name]: parseInt(e.target.value) });
+      setErrorInput(validate({ ...paciente, [e.target.name]: parseInt(e.target.value) }));
     }
     else {
       setPaciente({
         ...paciente,
         [e.target.name]: e.target.value,
       });
+      setErrorInput(validate({ ...paciente, [e.target.name]: e.target.value }));
+
     }
   };
 
@@ -88,27 +90,34 @@ export default function Form({
     } else if (editPaciente.id) {
       //EDITAR PACIENTE
 
-      paciente.id = editPaciente.id;
-      paciente.nro = editPaciente.nro;
+      if (errorInput.nombre || errorInput.apellido || errorInput.email || errorInput.edad || errorInput.telefono) {
+        setError(true);
+        return setMsjErrors("¡No se pudo editar este paciente, verifique los campos!");
+      } else {
+        paciente.id = editPaciente.id;
+        paciente.nro = editPaciente.nro;
+        //CAMBIANDO EL FORMATO DE LA FECHA/HORA
+        paciente.fecha = formatoFecha(paciente.fecha);
+        const pacientesActualizados = pacientes.map((pacienteState) =>
+          pacienteState.id === editPaciente.id ? paciente : pacienteState
+        );
 
-      const pacientesActualizados = pacientes.map((pacienteState) =>
-        pacienteState.id === editPaciente.id ? paciente : pacienteState
-      );
+        setPacientes(pacientesActualizados);
+        setEditPaciente({});
+        edit && setEdit(false);
+        Swal.fire({
+          text: `El paciente se ha sido editado correctamente!`,
+          width: "400px",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
 
-      setPacientes(pacientesActualizados);
-      setEditPaciente({});
-      edit && setEdit(false);
-      Swal.fire({
-        text: `El paciente se ha sido editado correctamente!`,
-        width: "400px",
-        height: "400px",
-        icon: "success",
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
-    } else if(error && msjErrors){
-        return setMsjErrors("¡No se pudo enviar el formulario!")
+    } else if (errorInput.nombre || errorInput.apellido || errorInput.email || errorInput.edad || errorInput.telefono) {
+      setError(true);
+      return setMsjErrors("¡Verfique los campos requeridos!");
     }
     else {
       //AGREGAR NUEVO PACIENTE
@@ -121,9 +130,8 @@ export default function Form({
       //CONTADOR DE PACIENTES
       setCountPatients(countPatiens + 1);
       Swal.fire({
-        text: `El paciente se ha agreagado a la lista correctamente`,
+        text: `El paciente se ha agregado a la lista correctamente`,
         width: "400px",
-        height: "400px",
         icon: "success",
         timer: 1500,
         timerProgressBar: true,
@@ -153,7 +161,6 @@ export default function Form({
         confirmButtonText: "Reiniciar",
         cancelButtonText: "Cancelar",
         width: "400px",
-        height: "400px",
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.clear();
@@ -165,7 +172,6 @@ export default function Form({
             timer: 1500,
             timerProgressBar: true,
             width: "400px",
-            height: "400px",
           });
         }
       });
@@ -174,57 +180,43 @@ export default function Form({
 
   //VALIDACIONES DE LOS INPUTS
   const [msjErrors, setMsjErrors] = useState("");
-  const [errorInput, setErrorInput] = useState({
-    nombre: false,
-    apellido: false,
-    email: false,
-    edad: false,
-    telefono: false,
-    allInputs: false
-  });
+  const [errorInput, setErrorInput] = useState({});
 
   function validate(input) {
     const err1 = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;//Letras mayusculas y minusculas, espacios y acentos
     const err2 = /^[a-z0-9._@\-]+$/;//Letras, numeros, punto, arroba, guion, guion bajo
+    const err3 = /^\d+$/;//Numeros
+
+    let error = {}
 
     if (input.nombre && (!err1.test(input.nombre))) {
-      setErrorInput({ ...errorInput, nombre: true });
-      setError(true);
-      return setMsjErrors("¡Solo puede contener letras!");
+
+      error.nombre = "¡Solo puede contener letras!";
+
     }
-    else if (input.apellido && (!err1.test(input.apellido))) {
-      setErrorInput({ ...errorInput, apellido: true });
-      setError(true);
-      return setMsjErrors("¡Solo puede contener letras!");
+    if (input.apellido && (!err1.test(input.apellido))) {
+
+      error.apellido = "¡Solo puede contener letras!";
     }
-    else if (input.email && (!err2.test(input.email))) {
-      setError(true);
-      setErrorInput({ ...errorInput, email: true });
-      return setMsjErrors("¡No se permite esos caracteres especiales!");
+    if (input.email && (!err2.test(input.email))) {
+
+      error.email = "¡No se permite esos caracteres especiales!";
     }
-    else if (input.edad && !(input.edad >= 1 && input.edad <= 100) || input.edad === 0) {
-      setError(true);
-      setErrorInput({ ...errorInput, edad: true });
-      return setMsjErrors("¡Edad no permitida!");
+    if (input.telefono && (!err3.test(input.telefono))) {
+
+      error.telefono = "¡No se permite letras ni caracteres especiales!";
     }
-    else {
-      setMsjErrors("");
-      setError(false);
-      setErrorInput({
-        nombre: false,
-        apellido: false,
-        email: false,
-        edad: false,
-        telefono: false,
-        fecha: false,
-        allInputs: false
-      })
+    if (input.edad && !(input.edad >= 1 && input.edad <= 100) || input.edad === 0) {
+
+      error.edad = "¡Edad no permitida!";
     }
 
-    return;
+    console.log(input.telefono);
+
+    return error;
   }
-  console.log(error);
-  console.log(msjErrors);
+  console.log(paciente);
+  console.log(errorInput);
 
   return (
     <>
@@ -288,6 +280,11 @@ export default function Form({
                 value={paciente.nombre}
                 onChange={(e) => handleChange(e)}
               />
+              {errorInput.nombre && (
+                <p className="text-red-500 text-xs mt-1 text-center">
+                  {errorInput.nombre}
+                </p>
+              )}
             </div>
             <div className="w-full min-[520px]:w-1/2">
               <label
@@ -309,6 +306,11 @@ export default function Form({
                 value={paciente.apellido}
                 onChange={(e) => handleChange(e)}
               />
+              {errorInput.apellido && (
+                <p className="text-red-500 text-xs mt-1 text-center">
+                  {errorInput.apellido}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex flex-col min-[520px]:flex-row gap-2 lg:gap-3">
@@ -332,6 +334,11 @@ export default function Form({
                 value={paciente.email}
                 onChange={(e) => handleChange(e)}
               />
+              {errorInput.email && (
+                <p className="text-red-500 text-xs mt-1 text-center">
+                  {errorInput.email}
+                </p>
+              )}
             </div>
             <div className="w-full min-[520px]:w-2/6">
               <label
@@ -352,12 +359,16 @@ export default function Form({
                 }
                 value={paciente.edad}
                 onChange={(e) => handleChange(e)}
-
               />
+              {errorInput.edad && (
+                <p className="text-red-500 text-xs mt-1 text-center">
+                  {errorInput.edad}
+                </p>
+              )}
             </div>
           </div>
-          <div className="flex flex-col min-[520px]:flex-row lg:flex-col min-[1260px]:flex-row gap-2 lg:gap-3">
-            <div className="w-full min-[520px]:w-4/6 lg:w-full min-[1260px]:w-4/6 ">
+          <div className="flex flex-col min-[600px]:flex-row lg:flex-col min-[1260px]:flex-row gap-2 lg:gap-3">
+            <div className="w-full min-[600px]:w-4/6 lg:w-full min-[1260px]:w-4/6 ">
               <label
                 htmlFor="tlf"
                 className="text-sm block text-[#31353D] uppercase font-bold"
@@ -377,8 +388,13 @@ export default function Form({
                 value={paciente.telefono}
                 onChange={(e) => handleChange(e)}
               />
+              {errorInput.telefono && (
+                <p className="text-red-500 text-xs mt-1 text-center">
+                  {errorInput.telefono}
+                </p>
+              )}
             </div>
-            <div className="w-full min-[520px]:w-2/6 lg:w-full min-[1260px]:w-2/6 ">
+            <div className="w-full min-[600px]:w-2/6 lg:w-full min-[1260px]:w-2/6 ">
               <label
                 htmlFor="dateInput"
                 className="text-sm block text-[#31353D] uppercase font-bold"

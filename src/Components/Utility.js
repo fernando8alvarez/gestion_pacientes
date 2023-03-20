@@ -15,13 +15,13 @@ export const toUpperString = (string) => {
 };
 
 //CONVERTIR HORA MILITAR A HORA ESTANDAR
-export const horaEstándar = (horaMilitar) => {
+const horaEstándar = (horaMilitar) => {
   // Dividir la hora y los minutos
-  var hora = parseInt(horaMilitar.substring(0, 2));
-  var minutos = horaMilitar.substring(2);
+  let hora = parseInt(horaMilitar.substring(0, 2));
+  let minutos = horaMilitar.substring(2);
 
   // Establecer el período (AM o PM)
-  var periodo = hora >= 12 ? 'PM' : 'AM';
+  let periodo = hora >= 12 ? 'PM' : 'AM';
 
   // Convertir de formato militar a formato estándar
   hora = hora % 12;
@@ -29,16 +29,50 @@ export const horaEstándar = (horaMilitar) => {
   minutos = minutos < 10 ? '0' + minutos : minutos;
 
   // Devolver la hora en formato estándar
-  return hora  + minutos + ' ' + periodo;
+  return hora + minutos + ' ' + periodo;
 }
 
-
-//FORMATO FECHA/HORA
+//FORMATO FECHA/HORA ESTANDAR
 export const formatoFecha = (fecha) => {
 
   const separar = fecha.split("T");
   const hora = horaEstándar(separar[1]);
 
   return separar[0] + " " + hora;
+
+}
+
+//CONVERTIR HORA ESTANDAR A HORA MILITAR
+const horaMilitar = (horaEstandar) => {
+  let partesHora = horaEstandar.split(" ");
+  let partesTiempo = partesHora[1].split(':');
+  let horas = parseInt(partesTiempo[0]);
+  let minutos = parseInt(partesTiempo[1]);
+  let segundos = 0;
+
+  if (partesHora[2] === 'PM' && horas !== 12) {
+    horas += 12;
+  }
+  else if (partesHora[2] === 'AM' && horas !== 12) {
+    horas = 0;
+  }
+
+  horas = horas < 10 ? '0' + horas : horas;
+  minutos = minutos < 10 ? '0' + minutos : minutos;
+  segundos = segundos < 10 ? '0' + segundos : segundos;
+
+  let hora = horas + ':' + minutos + ':' + segundos;
+
+  return hora;
+
+}
+
+// //FORMATO FECHA / HORA MILITAR
+export const fechaHora = (horaEstandar) => {
+
+  const hora = horaMilitar(horaEstandar);
+  const fecha = horaEstandar.split(" ");
+
+  return fecha[0] + "T" + hora;
 
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Form from "./Components/Form";
 import Header from "./Components/Header";
 import PatientList from "./Components/PatientList";
+import Footer from "./Components/Footer";
 
 export default function App() {
   //ESTADOS LOCALES
@@ -40,7 +41,7 @@ export default function App() {
   return (
     <div className="h-screen px-5">
       <Header />
-      <div className="h-auto lg:h-screen min-[1300px]:h-[85%] flex flex-col lg:flex-row gap-5 w-full bg-[#237fd9] py-5 md:px-16 min-[700px]:px-20 lg:px-20 lg:py-4 rounded-t-2xl">
+      <div className="h-auto lg:h-auto min-[1370px]:h-[85%] flex flex-col lg:flex-row gap-5 w-full bg-[#237fd9] py-5 md:px-16 min-[700px]:px-20 lg:px-20 lg:py-4 rounded-t-2xl">
         <Form
           pacientes={pacientes}
           setPacientes={setPacientes}
@@ -67,6 +68,7 @@ export default function App() {
           setError={setError}
         />
       </div>
+      <Footer />
     </div>
   );
 }
