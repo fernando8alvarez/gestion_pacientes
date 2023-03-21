@@ -211,12 +211,8 @@ export default function Form({
       error.edad = "¡Edad no permitida!";
     }
 
-    console.log(input.telefono);
-
     return error;
   }
-  console.log(paciente);
-  console.log(errorInput);
 
   return (
     <>

@@ -39,7 +39,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen px-5">
+    <div className="h-screen px-5 bg-[#ECF1F6]">
       <Header />
       <div className="h-auto lg:h-auto min-[1370px]:h-[85%] flex flex-col lg:flex-row gap-5 w-full bg-[#237fd9] py-5 md:px-16 min-[700px]:px-20 lg:px-20 lg:py-4 rounded-t-2xl">
         <Form
