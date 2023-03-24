@@ -28,7 +28,17 @@ Es una herramienta útil diseñada con JavaScript y React para gestionar pacient
 <img width="10px"/>
 <img src="https://github.com/fernando8alvarez/My-PI-Food/blob/main/Img/react.png" height="80px"/>
 <img width="10px"/>
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/tailwind.png" height="80px"/>
+<img width="10px"/>
 <img src="https://github.com/fernando8alvarez/My-PI-Food/blob/main/Img/sweetalert2.png" height="80px"/>
 <img width="10px"/>
-<img src="https://github.com/fernando8alvarez/My-PI-Food/blob/main/Img/canva.png" height="80px"/>
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/Netlify.png" height="80px"/>
 </p>
+
+## Ejecución local de la aplicación
+
+### Front-end
+```
+- npm install
+- npm run dev
+```
