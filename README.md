@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="200" src="https://github.com/fernando8alvarez/My-PI-Food/blob/main/client/src/components/image/Logo.png" />
+  <img height="200" src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/CM.png" />
 </p>
 
 ## De que trata la app
