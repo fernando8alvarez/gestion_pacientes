@@ -37,8 +37,21 @@ Es una herramienta útil diseñada con JavaScript y React para gestionar pacient
 
 ## Ejecución local de la aplicación
 
-### Front-end
 ```
 - npm install
 - npm run dev
 ```
+
+## Funcionalidades y caracteristicas
+
+- **Formulario controlado** 
+- **Validación de campos**
+- **Listado de pacientes**
+- **Local Storage**
+- **Edición de pacientes**
+- **Eliminación de pacientes**
+- **Numeración de paciente**
+- **Visualización de pacientes en lista** 
+- **Visualización de la cantidad de pacientes por dia**
+- **Responsividad**
+- **Reinicio de sistema** 
