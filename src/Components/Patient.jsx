@@ -119,7 +119,7 @@ export default function Patient({
         </p>
       </div>
       <p className="block text-gray-700 text-sm min-[570px]:text-base lg:text-sm min-[1250px]:text-base font-bold mb-4">
-        Sintomas:{" "}
+        Motivo o sintomas:{" "}
         <span className="font-normal normal-case text-sm min-[570px]:text-base min-[700px]:text-sm min-[800px]:text-base lg:text-sm min-[1250px]:text-base">
           {sintomas}
         </span>

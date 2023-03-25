@@ -34,9 +34,9 @@ export default function PatientList({
                   {nroPatien}
                 </span>
               </div>
-              <div className="flex gap-4 items-center justify-center">
+              <div className="flex gap-7 items-center justify-center">
                 <h2 className="text-[#31353D] font-bold text-base md:text-lg min-[900px]:text-xl lg:text-base">
-                  Cantidad
+                  En lista
                 </h2>
                 <span className="font-bold text-base md:text-lg min-[900px]:text-xl lg:text-base text-[#237fd9]">
                   {pacientes.length}
@@ -44,7 +44,7 @@ export default function PatientList({
               </div>
             </div>
           </div>
-          <div className="pr-2 flex flex-col gap-5 h-[560px] overflow-y-scroll">
+          <div className="pr-2 flex flex-col gap-5 lg:h-[550px] min-[1280px]:h-[475px] overflow-y-scroll">
             {pacientes.map((paciente) => (
               <Patient
                 key={paciente.id}
@@ -88,9 +88,9 @@ export default function PatientList({
                   {nroPatien}
                 </span>
               </div>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-7 justify-center">
                 <h2 className="text-[#31353D] font-bold text-base md:text-lg min-[900px]:text-xl lg:text-base text-center">
-                  Cantidad
+                  En lista
                 </h2>
                 <span className="font-bold text-base md:text-xl lg:text-lg text-center text-red-500">
                   {pacientes.length}
