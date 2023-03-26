@@ -34,7 +34,7 @@ export default function PatientList({
                   {nroPatien}
                 </span>
               </div>
-              <div className="flex gap-7 items-center justify-center">
+              <div className="flex gap-4 lg:gap-7 items-center justify-center">
                 <h2 className="text-[#31353D] font-bold text-base md:text-lg min-[900px]:text-xl lg:text-base">
                   En lista
                 </h2>
@@ -88,7 +88,7 @@ export default function PatientList({
                   {nroPatien}
                 </span>
               </div>
-              <div className="flex gap-7 justify-center">
+              <div className="flex gap-4 lg:gap-7 justify-center">
                 <h2 className="text-[#31353D] font-bold text-base md:text-lg min-[900px]:text-xl lg:text-base text-center">
                   En lista
                 </h2>
