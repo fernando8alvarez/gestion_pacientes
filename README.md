@@ -55,3 +55,9 @@ Es una herramienta útil diseñada con JavaScript y React para gestionar pacient
 - **Visualización de la cantidad de pacientes por dia**
 - **Responsividad**
 - **Reinicio de sistema** 
+
+## Vista previa de la app
+
+- **Landing page:** Carta de presentación y bienvenida a la página.
+
+<img src="https://github.com/fernando8alvarez/Cars-Market/blob/main/Img/Landing%20Page.png" />
