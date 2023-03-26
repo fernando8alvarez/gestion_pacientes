@@ -56,7 +56,7 @@ Es una herramienta útil para gestionar pacientes en entornos médicos esta dise
 - **Responsividad**
 - **Reinicio de sistema** 
 - **Estilos con Tailwind**
-- **Deply con Netlify** 
+- **Deploy con Netlify** 
 
 ## Vista previa de la app
 
