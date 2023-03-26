@@ -55,6 +55,8 @@ Es una herramienta útil para gestionar pacientes en entornos médicos esta dise
 - **Visualización de la cantidad de pacientes por dia**
 - **Responsividad**
 - **Reinicio de sistema** 
+- **Estilos con Tailwind**
+- **Deply con Netlify** 
 
 ## Vista previa de la app
 
