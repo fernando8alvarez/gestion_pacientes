@@ -58,6 +58,14 @@ Es una herramienta útil diseñada con JavaScript y React para gestionar pacient
 
 ## Vista previa de la app
 
-- **Landing page:** Carta de presentación y bienvenida a la página.
+- **Presentación:** visualización inicial de la app.
 
-<img src="https://github.com/fernando8alvarez/Cars-Market/blob/main/Img/Landing%20Page.png" />
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P1.png" />
+
+- **Presentación:** visualización inicial de la app.
+
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P2.png" />
+
+- **Presentación:** visualización inicial de la app.
+
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P3.png" />
