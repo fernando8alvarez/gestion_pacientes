@@ -58,6 +58,10 @@ Es una herramienta útil diseñada con JavaScript y React para gestionar pacient
 
 ## Vista previa de la app
 
+- **Responsividad:** visualización de la app en cualquier dispositivo.
+
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/responsividad.png" />
+
 - **Presentación:** visualización inicial de la app.
 
 <img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P1.png" />
