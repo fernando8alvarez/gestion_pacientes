@@ -62,10 +62,18 @@ Es una herramienta útil diseñada con JavaScript y React para gestionar pacient
 
 <img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P1.png" />
 
-- **Presentación:** visualización inicial de la app.
+- **Formulario:** formulario para regitrar los pacientes (no se puede enviar el formulario vacio o sin los campos requeridos).
 
 <img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P2.png" />
 
-- **Presentación:** visualización inicial de la app.
+- **Validación de campos:** cada campo requerido es validado de forma individual segun la información.
 
 <img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P3.png" />
+
+- **Agregando pacientes:** añadiendo paciente a la lista.
+
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P4.png" />
+
+- **Editando paciente:** editando la información de un paciente.
+
+<img src="https://github.com/fernando8alvarez/gestion_pacientes/blob/main/imgs/P5.png" />
